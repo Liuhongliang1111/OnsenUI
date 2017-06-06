@@ -162,7 +162,10 @@ notification._createAlertDialog = options => {
         el.dialog.hide()
           .then(() => {
             if (el) {
-              const resolveValue = options.isPrompt ? el.input.value : index;
+              let resolveValue = index;
+              if (options.isPrompt) {
+                resolveValue = index === options.buttonLabels.length - 1 ? el.input.value : null;
+              }
               el.dialog.remove();
               _destroyDialog();
               options.callback(resolveValue);
